@@ -1,0 +1,37 @@
+package com.github.yuuki1293.mekpipezfix.mixins;
+
+import com.github.yuuki1293.mekpipezfix.IValve;
+import com.llamalad7.mixinextras.sugar.Local;
+import mekanism.common.lib.multiblock.*;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import org.spongepowered.asm.mixin.Final;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+@Mixin(value = FormationProtocol.class, remap = false)
+public abstract class FormationProtocolMixin<T extends MultiblockData> {
+    @Shadow
+    @Final
+    private IMultiblock<T> pointer;
+
+    /**
+     * Update pipez when a multi-block is assembled.
+     */
+    @Inject(method = "doUpdate", at = @At("RETURN"))
+    public void doUpdate(CallbackInfoReturnable<FormationProtocol.FormationResult> cir, @Local(name = "structureFound") T structureFound) {
+        var ret = cir.getReturnValue();
+        if (ret == FormationProtocol.FormationResult.SUCCESS) {
+            var level = pointer.getTileWorld();
+            structureFound.valves.stream()
+                .map(p -> p.location)
+                .map(level::getBlockEntity)
+                .filter(IValve.class::isInstance)
+                .map(IValve.class::cast)
+                .forEach(v -> v.mekpipezfix$updatePipezCache((BlockEntity) v, Direction.values()));
+        }
+    }
+}
