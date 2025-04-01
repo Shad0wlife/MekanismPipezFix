@@ -1,7 +1,8 @@
 package com.github.yuuki1293.mekpipezfix.mixins;
 
 import com.github.yuuki1293.mekpipezfix.IValve;
-import de.maxhenkel.pipez.utils.DummyFluidHandler;
+import com.github.yuuki1293.mekpipezfix.dummy.Dummy;
+import mekanism.common.capabilities.Capabilities;
 import mekanism.common.registration.impl.TileEntityTypeRegistryObject;
 import mekanism.common.tile.base.CapabilityTileEntity;
 import mekanism.common.tile.multiblock.TileEntityDynamicValve;
@@ -11,24 +12,34 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
+import org.apache.commons.lang3.ArrayUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 
 @Mixin(value = TileEntityDynamicValve.class)
 public abstract class TileEntityDynamicValveMixin extends CapabilityTileEntity implements IValve {
+    @Unique
+    static private final Capability<?>[] mekanismPipezFix$caps = {
+        ForgeCapabilities.FLUID_HANDLER,
+        Capabilities.GAS_HANDLER,
+        Capabilities.INFUSION_HANDLER,
+        Capabilities.PIGMENT_HANDLER,
+        Capabilities.SLURRY_HANDLER
+    };
+
     public TileEntityDynamicValveMixin(TileEntityTypeRegistryObject<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
     }
 
-    @SuppressWarnings("unchecked")
     @NotNull
     @Override
-    public <T> LazyOptional<T> getCapability(@NotNull Capability<T> capability, @Nullable Direction side){
+    public <T> LazyOptional<T> getCapability(@NotNull Capability<T> capability, @Nullable Direction side) {
         var cap = super.getCapability(capability, side);
-        if (!cap.isPresent()) {
-            if(capability == ForgeCapabilities.FLUID_HANDLER)
-                return LazyOptional.of(() -> (T) DummyFluidHandler.INSTANCE);
+        if (!cap.isPresent() && ArrayUtils.contains(mekanismPipezFix$caps, capability)) {
+            //noinspection unchecked
+            return LazyOptional.of(() -> (T) Dummy.MAP.get(capability));
         }
         return cap;
     }
