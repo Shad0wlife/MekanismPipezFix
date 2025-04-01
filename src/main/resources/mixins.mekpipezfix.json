@@ -6,6 +6,15 @@
     "compatibilityLevel": "JAVA_17",
     "mixins": [
         "FormationProtocolMixin",
-        "TileEntityDynamicValveMixin"
+        "TileEntityBoilerValveMixin",
+        "TileEntityDynamicValveMixin",
+        "TileEntityFissionReactorPortMixin",
+        "TileEntityFusionReactorControllerMixin",
+        "TileEntityFusionReactorPortMixin",
+        "TileEntityInductionPortMixin",
+        "TileEntitySPSPortMixin",
+        "TileEntityThermalEvaporationValveMixin",
+        "TileEntityTurbineValveMixin",
+        "TileEntityTurbineVentMixin"
     ]
 }

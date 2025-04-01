@@ -9,7 +9,7 @@ import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Dummy {
+public class Dummies {
     public static Map<Capability<?>, Object> MAP = new HashMap<>();
 
     static {
