@@ -253,7 +253,6 @@ curseforge {
         addGameVersion 'Java 17'
         addGameVersion 'Forge'
         addGameVersion '1.20.1'
-        addGameVersion 'Server'
         releaseType = project.version_type
         changelog = parserChangelog()
         changelogType = 'markdown'
