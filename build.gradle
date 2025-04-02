@@ -291,7 +291,7 @@ githubRelease {
     // You get this from your user settings > developer settings > Personal Access Tokens
     owner 'yuuki1293'
     // default is the last part of your group. Eg group: 'com.github.breadmoirai" => owner: "breadmoirai"
-    repo 'PipezMekanismFix' // by default this is set to your project name
+    repo 'MekanismPipezFix' // by default this is set to your project name
     tagName "v${project.version}" // by default this is set to "v${project.version}"
     targetCommitish '1.20.1' // by default this is set to "main"
     releaseName "${rootProject.name} ${project.version}" // Release title, by default this is the same as the tagName
