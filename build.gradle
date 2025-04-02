@@ -249,19 +249,19 @@ curseforge {
     apiKey = System.getenv('CURSEFORGE_TOKEN') ?: ''
     // noinspection GroovyAssignabilityCheck
     project {
-        id = 'dummy'
+        id = '1233861'
         addGameVersion 'Java 17'
         addGameVersion 'Forge'
         addGameVersion '1.20.1'
         releaseType = project.version_type
         changelog = parserChangelog()
         changelogType = 'markdown'
-        mainArtifact jar, {
+        mainArtifact tasks.jarJar, {
             displayName = "${rootProject.name} ${project.version}"
             relations {
                 requiredDependency 'pipez'
                 requiredDependency 'mekanism'
-                requiredDependency 'mekanism-generators'
+                optionalDependency 'mekanism-generators'
             }
         }
     }
@@ -270,19 +270,19 @@ curseforge {
 modrinth {
     token = System.getenv('MODRINTH_TOKEN') ?: ''
     // Remember to have the MODRINTH_TOKEN environment variable set or else this will fail - just make sure it stays private!
-    projectId = 'dummy' // This can be the project ID or the slug. Either will work!
+    projectId = 'TXcBL9V3' // This can be the project ID or the slug. Either will work!
     versionNumber = project.version as String
     versionName = "${rootProject.name} ${project.version}"
     // You don't need to set this manually. Will fail if Modrinth has this version already
     versionType = project.version_type // This is the default -- can also be `beta` or `alpha`
-    uploadFile = jar // With Loom, this MUST be set to `remapJar` instead of `jar`!
+    uploadFile = tasks.jarJar // With Loom, this MUST be set to `remapJar` instead of `jar`!
     gameVersions = [project.minecraft_version] // Must be an array, even with only one version
     loaders = ['forge'] // Must also be an array - no need to specify this if you're using Loom or ForgeGradle
     changelog = parserChangelog()
     dependencies {
         required.project 'pipez'
         required.project 'mekanism'
-        required.project 'mekanism-generators'
+        optional.project 'mekanism-generators'
     }
 }
 
@@ -300,7 +300,7 @@ githubRelease {
     body parserChangelog() // by default this is empty
     draft true // by default this is true
     prerelease false // by default this is false
-    releaseAssets jar
+    releaseAssets tasks.jarJar
     // this points to which files you want to upload as assets with your release, by default this is empty
     allowUploadToExisting.set false
     // Setting this to true will allow this plugin to upload artifacts to a release if it found an existing one. If overwrite is set to true, this option is ignored.
