@@ -13,6 +13,7 @@
         "TileEntityFusionReactorPortMixin",
         "TileEntityInductionPortMixin",
         "TileEntitySPSPortMixin",
+        "TileEntityThermalEvaporationControllerMixin",
         "TileEntityThermalEvaporationValveMixin",
         "TileEntityTurbineValveMixin",
         "TileEntityTurbineVentMixin"

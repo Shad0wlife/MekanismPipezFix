@@ -4,6 +4,7 @@ import com.github.yuuki1293.mekpipezfix.IValve;
 import com.github.yuuki1293.mekpipezfix.dummy.Dummies;
 import mekanism.common.registration.impl.TileEntityTypeRegistryObject;
 import mekanism.common.tile.base.CapabilityTileEntity;
+import mekanism.common.tile.multiblock.TileEntityInductionPort;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.state.BlockState;
@@ -16,10 +17,11 @@ import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 
-@Mixin(value = TileEntityInductionPortMixin.class)
+@Mixin(value = TileEntityInductionPort.class)
 public abstract class TileEntityInductionPortMixin extends CapabilityTileEntity implements IValve {
     @Unique
     static private final Capability<?>[] mekanismPipezFix$caps = {
+        ForgeCapabilities.ITEM_HANDLER,
         ForgeCapabilities.ENERGY
     };
 

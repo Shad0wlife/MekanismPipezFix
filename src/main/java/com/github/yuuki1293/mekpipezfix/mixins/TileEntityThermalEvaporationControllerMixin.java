@@ -2,10 +2,9 @@ package com.github.yuuki1293.mekpipezfix.mixins;
 
 import com.github.yuuki1293.mekpipezfix.IValve;
 import com.github.yuuki1293.mekpipezfix.dummy.Dummies;
-import mekanism.common.capabilities.Capabilities;
 import mekanism.common.registration.impl.TileEntityTypeRegistryObject;
 import mekanism.common.tile.base.CapabilityTileEntity;
-import mekanism.generators.common.tile.fission.TileEntityFissionReactorPort;
+import mekanism.common.tile.multiblock.TileEntityThermalEvaporationController;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.state.BlockState;
@@ -18,16 +17,14 @@ import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 
-@Mixin(value = TileEntityFissionReactorPort.class)
-public abstract class TileEntityFissionReactorPortMixin extends CapabilityTileEntity implements IValve {
+@Mixin(value = TileEntityThermalEvaporationController.class)
+public abstract class TileEntityThermalEvaporationControllerMixin extends CapabilityTileEntity implements IValve {
     @Unique
     static private final Capability<?>[] mekanismPipezFix$caps = {
-        ForgeCapabilities.ITEM_HANDLER,
-        ForgeCapabilities.FLUID_HANDLER,
-        Capabilities.GAS_HANDLER
+        ForgeCapabilities.ITEM_HANDLER
     };
 
-    public TileEntityFissionReactorPortMixin(TileEntityTypeRegistryObject<?> type, BlockPos pos, BlockState state) {
+    public TileEntityThermalEvaporationControllerMixin(TileEntityTypeRegistryObject<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
     }
 

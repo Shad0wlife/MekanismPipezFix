@@ -22,6 +22,7 @@ import org.spongepowered.asm.mixin.Unique;
 public abstract class TileEntityDynamicValveMixin extends CapabilityTileEntity implements IValve {
     @Unique
     static private final Capability<?>[] mekanismPipezFix$caps = {
+        ForgeCapabilities.ITEM_HANDLER,
         ForgeCapabilities.FLUID_HANDLER,
         Capabilities.GAS_HANDLER,
         Capabilities.INFUSION_HANDLER,
